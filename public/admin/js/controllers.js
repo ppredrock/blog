@@ -17,6 +17,7 @@ adminApp.controller('AllPostsCtrl', function($scope, postList,Posts){
 	}
 
 $scope.removeMe=function(post){
+
 	$scope._id=post._id;
 	console.log($scope._id);
 	Posts.remove($scope._id);
@@ -25,7 +26,13 @@ $scope.removeMe=function(post){
 	swal("Good Job","Blog Removed","success");
 };
 
+$scope.updateMe=function(postList,$index){
 
+	$scope.post=postList[$index];
+	console.log($scope.post);
+
+
+};
 
 
 });

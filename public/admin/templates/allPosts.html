@@ -6,14 +6,15 @@
             <li ng-show="!posts.length">No posts have been published</li>
 
             <li ng-repeat='post in posts track by $index'
-                class="list-group-item glyphicon"
+                class="list-group-item list-group-item-info"
                 ng-class="{'active': (activePost === post)}"
                 ng-click='setActive(post)'>
 
                 <h4 class="list-group-item-heading">{{post.title}}</h4>
                 <p class="list-group-item-text">{{post.body.substr(0, 140)}}</p>
                 <span class="glyphicon glyphicon-remove" ng-click='removeMe(post)'> </span>
-                <span class="glyphicon glyphicon-edit" ng-click='updateMe(post)'> </span>
+                <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#updateModal" ng-click='updateMe(posts,$index)'> </span>
+
             </li>
         </ul>
     </div>
@@ -22,7 +23,24 @@
     <!-- Page Content -->
     <div class='col-md-8 col-sm-8 full-height'>
         <h2>{{activePost.title}}</h2>
-        <div btf-markdown='activePost.body'></div>
+        <div>{{activePost.body}}</div>
     </div>
 </div> 
 
+                <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="basicModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a><span type="text" data-dismiss="modal" aria-hidden="true">x</span></a>
+                                 <div><input type='text' placeholder='Title' ng-model='post.title' name='title' class='form-control'></div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mt-10"><textarea rows="7" cols="76" ng-model='post.body'>{{activePost.body}}</textarea> </div>  
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" ng-click='updateMe(posts,$index)' data-dismiss="modal">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
